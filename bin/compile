@@ -34,9 +34,8 @@ mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
 
 echo "-----> Configuring Apt"
-deb http://archive.ubuntu.com/ubuntu xenial main universe multiverse
-deb http://archive.ubuntu.com/ubuntu xenial-updates main universe multiverse
-deb http://archive.ubuntu.com/ubuntu xenial-security main universe multiverse
+add-apt-repository multiverse 
+dpkg --add-architecture i386
 apt-get $APT_OPTIONS update | indent
 
 echo "-----> Installing s3cmd... "
