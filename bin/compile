@@ -34,7 +34,9 @@ mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
 
 echo "-----> Configuring Apt"
-add-apt-repository multiverse 
+echo "deb http://archive.ubuntu.com/ubuntu xenial main universe multiverse" >> /etc/apt/sources.list
+echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main universe multiverse" >> /etc/apt/sources.list
+echo "deb http://archive.ubuntu.com/ubuntu xenial-security main universe multiverse" >> /etc/apt/sources.list
 dpkg --add-architecture i386
 apt-get $APT_OPTIONS update | indent
 
