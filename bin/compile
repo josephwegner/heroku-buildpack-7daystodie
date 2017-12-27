@@ -34,6 +34,7 @@ mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
 
 echo "-----> Configuring Apt"
+dpkg --add-architecture i386
 apt-get $APT_OPTIONS update | indent
 
 echo "-----> Installing s3cmd... "
