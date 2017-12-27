@@ -34,8 +34,6 @@ mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
 
 echo "-----> Configuring Apt"
-sudo add-apt-repository multiverse 
-sudo dpkg --add-architecture i386
 apt-get $APT_OPTIONS update | indent
 
 echo "-----> Installing s3cmd... "
@@ -44,7 +42,11 @@ echo "-----> Installing screen... "
 apt-get $APT_OPTIONS -y --force-yes -d install --reinstall screen | indent
 mkdir -p $BUILD_DIR/.apt/var/run/screen
 echo "-----> Installing SteamCMD... "
-apt-get $APT_OPTIONS -y --force-yes -d install --reinstall steamcmd | indent
+apt-get $APT_OPTIONS -y --force-yes -d install --reinstall lib32gcc1 | indent
+curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
+ls
+
+#apt-get $APT_OPTIONS -y --force-yes -d install --reinstall steamcmd | indent
 
 mkdir -p $BUILD_DIR/.profile.d
 cat <<EOF >$BUILD_DIR/.profile.d/000_apt.sh
