@@ -43,8 +43,8 @@ apt-get $APT_OPTIONS -y --force-yes -d install --reinstall screen | indent
 mkdir -p $BUILD_DIR/.apt/var/run/screen
 echo "-----> Installing SteamCMD... "
 apt-get $APT_OPTIONS -y --force-yes -d install --reinstall lib32gcc1 | indent
-curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf - $BUILD_DIR/.steam/
 mkdir -p $BUILD_DIR/.steam/
+curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf - $BUILD_DIR/.steam/
 
 #apt-get $APT_OPTIONS -y --force-yes -d install --reinstall steamcmd | indent
 
