@@ -39,6 +39,8 @@ apt-get $APT_OPTIONS -y --force-yes -d install --reinstall s3cmd | indent
 echo "-----> Installing screen... "
 apt-get $APT_OPTIONS -y --force-yes -d install --reinstall screen | indent
 mkdir -p $BUILD_DIR/.apt/var/run/screen
+echo "-----> Installing SteamCMD... "
+apt-get $APT_OPTIONS -y --force-yes -d install --reintsall steamcmd | indent
 
 mkdir -p $BUILD_DIR/.profile.d
 cat <<EOF >$BUILD_DIR/.profile.d/000_apt.sh
@@ -57,24 +59,9 @@ for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   dpkg -x $DEB $BUILD_DIR/.apt/
 done
 
-echo -n "-----> Installing ngrok... "
-curl --silent -o ngrok.zip -L "https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip" | indent
-unzip ngrok.zip -d $BUILD_DIR/bin > /dev/null 2>&1
-echo "done"
+sdtd_version=${SDTD_VERSION:-"1.12"}
+sdtd_url="https://s3.amazonaws.com/Minecraft.Download/versions/${sdtd_version}/minecraft_server.${sdtd_version}.jar"
 
-minecraft_version=${MINECRAFT_VERSION:-"1.12"}
-minecraft_url="https://s3.amazonaws.com/Minecraft.Download/versions/${minecraft_version}/minecraft_server.${minecraft_version}.jar"
-
-echo -n "-----> Installing Minecraft ${minecraft_version}... "
-curl -o minecraft.jar -s -L $minecraft_url
-mv minecraft.jar $BUILD_DIR/minecraft.jar
-echo "done"
-
-if [ -n "${MINECRAFT_EULA:-""}" ]; then
-  echo -n "-----> Accepting Minecraft EULA... "
-  echo "eula=true" >> $BUILD_DIR/eula.txt
-  echo "done"
-fi
 
 mkdir -p $BUILD_DIR/bin
 [ ! -f $BUILD_DIR/minecraft ]   && cp $OPT_DIR/minecraft $BUILD_DIR/bin
